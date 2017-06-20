@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.gaeta.myapplication.ActivityOpera"
+    tools:layout_editor_absoluteY="81dp"
+    tools:layout_editor_absoluteX="0dp">
+
+    <TextView
+        android:id="@+id/titolo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="17dp"
+        android:text="TextView"
+        android:layout_marginLeft="38dp"
+        android:layout_marginStart="38dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/autore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/titolo"
+        android:layout_alignStart="@+id/titolo"
+        android:layout_below="@+id/titolo"
+        android:layout_marginTop="9dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/corrente"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/autore"
+        android:layout_alignRight="@+id/autore"
+        android:layout_below="@+id/autore"
+        android:layout_marginTop="21dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/anno"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/corrente"
+        android:layout_alignStart="@+id/corrente"
+        android:layout_below="@+id/corrente"
+        android:layout_marginTop="19dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/categoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/anno"
+        android:layout_alignStart="@+id/anno"
+        android:layout_below="@+id/anno"
+        android:layout_marginTop="37dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/dimensione"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/categoria"
+        android:layout_alignStart="@+id/categoria"
+        android:layout_below="@+id/categoria"
+        android:layout_marginTop="37dp"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/ubicazione"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/dimensione"
+        android:layout_alignRight="@+id/dimensione"
+        android:layout_centerVertical="true"
+        android:text="TextView" />
+
+    <TextView
+        android:id="@+id/id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/ubicazione"
+        android:layout_alignStart="@+id/ubicazione"
+        android:layout_below="@+id/ubicazione"
+        android:layout_marginTop="42dp"
+        android:text="TextView" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/id"
+        android:layout_alignStart="@+id/id"
+        android:layout_marginBottom="45dp"
+        android:layout_marginLeft="47dp"
+        android:layout_marginStart="47dp"
+         />
+
+</RelativeLayout>
