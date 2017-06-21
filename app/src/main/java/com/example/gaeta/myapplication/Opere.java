@@ -1,6 +1,6 @@
-package com.example.gaeta.myapplication.classOpere;
+package com.example.gaeta.myapplication;
 
-public class opere {
+public class Opere {
 
     private String ID;
     private String Titolo;
@@ -9,7 +9,6 @@ public class opere {
     private String Anno;
     private String Categoria;
     private String Dimensioni;
-    private String Ubicazione;
     private String Immagine;
     private String Descrizione;
 
@@ -20,10 +19,6 @@ public class opere {
 
     public void setDescrizione(String descrizione) {
         Descrizione = descrizione;
-    }
-
-    public String getID() {
-        return ID;
     }
 
     public void setID(String ID) {
@@ -76,14 +71,6 @@ public class opere {
 
     public void setDimensioni(String dimensioni) {
         Dimensioni = dimensioni;
-    }
-
-    public String getUbicazione() {
-        return Ubicazione;
-    }
-
-    public void setUbicazione(String ubicazione) {
-        Ubicazione = ubicazione;
     }
 
     public String getImmagine() {

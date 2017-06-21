@@ -1,17 +1,17 @@
 package com.example.gaeta.myapplication;
 
-import android.content.Intent;
 import android.os.AsyncTask;
+import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-import com.example.gaeta.myapplication.classOpere.opere;
 import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,21 +20,39 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.HashMap;
 
 
-public class ActivityOpera extends AppCompatActivity {
+public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnInitListener, TextToSpeech.OnUtteranceCompletedListener {
 
-
+    private TextToSpeech textToSpeech;
+    public TextView descrizione;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opera);
 
-        String passato = getIntent().getExtras().getString("qr_letto");
 
+        textToSpeech = new TextToSpeech(ActivityOpera.this, ActivityOpera.this);
+        final ImageButton speech = (ImageButton)findViewById(R.id.speech);
+        speech.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(!textToSpeech.isSpeaking()){
+                    HashMap<String,String> map = new HashMap<String, String>();
+                    map.put(TextToSpeech.Engine.KEY_PARAM_UTTERANCE_ID, "");
+                    textToSpeech.speak(descrizione.getText().toString(),TextToSpeech.QUEUE_ADD,map);
+                    speech.setImageResource(R.drawable.pause);
+                }else{
+                    textToSpeech.stop();
+                    speech.setImageResource(R.drawable.onaudio);
+                }
+            }
+        });
+
+        String passato = getIntent().getExtras().getString("qr_letto");
 
             DisplayImageOptions defaultOptions = new DisplayImageOptions.Builder().cacheInMemory(true).cacheOnDisk(true).build();
             ImageLoaderConfiguration config = new ImageLoaderConfiguration.Builder(getApplicationContext()).defaultDisplayImageOptions(defaultOptions).build();
@@ -42,11 +60,36 @@ public class ActivityOpera extends AppCompatActivity {
             new JsonTask().execute("http://durresmuseum.altervista.org/CreazioneJsonOpere.php", passato);
     }
 
-    public class JsonTask extends AsyncTask<String,String,opere>{
+    @Override
+    public void onInit(int status) {
+        textToSpeech.setOnUtteranceCompletedListener(this);
+    }
+
+    @Override
+    public void onUtteranceCompleted(String utteranceId) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ImageButton speech = (ImageButton)findViewById(R.id.speech);
+                speech.setVisibility(Button.VISIBLE);
+            }
+        });
+    }
+
+    @Override
+    protected void onDestroy() {
+        if(textToSpeech != null){
+            textToSpeech.stop();
+            textToSpeech.shutdown();
+            textToSpeech = null;
+        }
+        super.onDestroy();
+    }
+
+    private class JsonTask extends AsyncTask<String,String,Opere>{
 
         @Override
-        protected opere doInBackground(String... params) {
-            boolean flag = false;
+        protected Opere doInBackground(String... params) {
             BufferedReader reader = null;
             HttpURLConnection conn = null;
             try {
@@ -65,15 +108,16 @@ public class ActivityOpera extends AppCompatActivity {
 
                 StringBuffer finalString = new StringBuffer();
 
-                opere opere = new opere();
+                Opere opere = new Opere();
                 JSONObject jsonObject = new JSONObject(finalJSON);
                 JSONArray jsonArray = jsonObject.getJSONArray("opere");
 
-                for(int i = 0; i < jsonArray.length(); i++) {
+                int jsonLength = jsonArray.length();
+                for(int i = 0; i < jsonLength; i++) {
 
                     JSONObject finalObject = jsonArray.getJSONObject(i);
                     //Se il codice QR letto e la stringa dell' array sono uguali ...
-                    if (params[1].compareTo(finalObject.getString("ID")) == 0) {
+                    if (params[1].equals(finalObject.getString("ID"))) {
                         opere.setID(finalObject.getString("ID"));
                         opere.setTitolo(finalObject.getString("Nome"));
                         opere.setAutore(finalObject.getString("Autore"));
@@ -81,18 +125,13 @@ public class ActivityOpera extends AppCompatActivity {
                         opere.setAnno(finalObject.getString("Anno_realizzazione"));
                         opere.setCategoria(finalObject.getString("Categoria"));
                         opere.setDimensioni(finalObject.getString("Dimensioni"));
-                        opere.setUbicazione(finalObject.getString("Ubicazione"));
                         opere.setDescrizione(finalObject.getString("Descrizione"));
                         opere.setImmagine(finalObject.getString("Immagine"));
                     }
                 }
                 return opere;
 
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (JSONException e) {
+            } catch (IOException | JSONException e) {
                 e.printStackTrace();
             } finally {
                 if(conn != null)
@@ -106,11 +145,10 @@ public class ActivityOpera extends AppCompatActivity {
             }
             return null;
 
-
         }
 
         @Override
-        protected void onPostExecute(opere s) {
+        protected void onPostExecute(Opere s) {
             super.onPostExecute(s);
             TextView titolo = (TextView)findViewById(R.id.titolo);
             TextView autore = (TextView)findViewById(R.id.autore);
@@ -118,8 +156,7 @@ public class ActivityOpera extends AppCompatActivity {
             TextView anno = (TextView)findViewById(R.id.anno);
             TextView categoria = (TextView)findViewById(R.id.categoria);
             TextView dimensioni = (TextView)findViewById(R.id.dimensione);
-            TextView ubicazione = (TextView)findViewById(R.id.ubicazione);
-            TextView id = (TextView)findViewById(R.id.id);
+            descrizione = (TextView)findViewById(R.id.descrizione);
             ImageView image = (ImageView)findViewById(R.id.imageView3);
 
             titolo.setText(s.getTitolo());
@@ -128,12 +165,10 @@ public class ActivityOpera extends AppCompatActivity {
             anno.setText(s.getAnno());
             categoria.setText(s.getCategoria());
             dimensioni.setText(s.getDimensioni());
-            ubicazione.setText(s.getUbicazione());
-            id.setText(s.getDescrizione());
+            descrizione.setText(s.getDescrizione());
             ImageLoader.getInstance().displayImage(s.getImmagine(), image);
 
         }
     }
 
-}
-
+ }
