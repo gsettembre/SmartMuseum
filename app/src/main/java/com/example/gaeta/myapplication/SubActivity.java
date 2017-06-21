@@ -5,6 +5,7 @@ import android.graphics.PointF;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Toast;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView;
 import com.dlazaro66.qrcodereaderview.QRCodeReaderView.OnQRCodeReadListener;
@@ -16,13 +17,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 
+
+/**
+ * PJDCC - Classe che modella l'Activity dove è presente la QRCodeReaderView per la scansione del QR.
+ *         E' presente una classe innestata per il controllo dell'ID nel file JSON.
+ *
+ * @authors Oranger Edoardo, Settembre Gaetano, Recchia Vito, Marchese Vito
+ * @version 1.0
+ */
 public class SubActivity extends AppCompatActivity implements OnQRCodeReadListener {
 
 	private QRCodeReaderView qrCodeReaderView;
-    public String trovato;
+    private String trovato;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,9 +79,11 @@ public class SubActivity extends AppCompatActivity implements OnQRCodeReadListen
                 InputStream stream = conn.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(stream));
                 StringBuffer stringBuffer = new StringBuffer();
-                String linea;
-                while((linea = reader.readLine())!= null){
+
+                String linea = reader.readLine();
+                while(linea!= null){
                     stringBuffer.append(linea);
+                    linea = reader.readLine();
                 }
 
                 String finalJSON = stringBuffer.toString();
@@ -83,7 +93,8 @@ public class SubActivity extends AppCompatActivity implements OnQRCodeReadListen
                 JSONObject jsonObject = new JSONObject(finalJSON);
                 JSONArray jsonArray = jsonObject.getJSONArray("opere");
 
-                for(int i = 0; i < jsonArray.length(); i++) {
+                int jsonLength = jsonArray.length();
+                for(int i = 0; i < jsonLength; i++) {
 
                     JSONObject finalObject = jsonArray.getJSONObject(i);
                     //Se il codice QR letto e la stringa dell' array sono uguali ...
@@ -94,7 +105,7 @@ public class SubActivity extends AppCompatActivity implements OnQRCodeReadListen
                 return flag;
 
             } catch (IOException | JSONException e) {
-                e.printStackTrace();
+                Log.e("Errore di I/O",e.toString());
             } finally {
                 if(conn != null)
                     conn.disconnect();
@@ -102,7 +113,7 @@ public class SubActivity extends AppCompatActivity implements OnQRCodeReadListen
                     try {
                         reader.close();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Log.e("Errore di I/O",e.toString());
                     }
             }
             return flag;

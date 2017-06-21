@@ -1,8 +1,14 @@
 package com.example.gaeta.myapplication;
 
+/**
+ * PJDCC - Classe che modella l'oggetto opera.
+ *
+ * @authors Oranger Edoardo, Settembre Gaetano, Recchia Vito, Marchese Vito
+ * @version 1.0
+ */
 public class Opere {
 
-    private String ID;
+    private String id;
     private String Titolo;
     private String Autore;
     private String Corrente;
@@ -22,7 +28,7 @@ public class Opere {
     }
 
     public void setID(String ID) {
-        this.ID = ID;
+        this.id = ID;
     }
 
     public String getTitolo() {

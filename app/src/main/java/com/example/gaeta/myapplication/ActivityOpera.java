@@ -4,6 +4,7 @@ import android.os.AsyncTask;
 import android.speech.tts.TextToSpeech;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -23,11 +24,19 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 
-
+/**
+ * PJDCC - Classe che modella l'Activity dove viene visualizzata la scheda
+ *         dopo la decodifica del relativo codice QR.
+ *         Vengono visualizzare tutte le informazioni, l'immagine se presente e il bottone
+ *         per l'avvio della sintesi vocale della descrizione.
+ *
+ * @authors Oranger Edoardo, Settembre Gaetano, Recchia Vito, Marchese Vito
+ * @version 1.0
+ */
 public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnInitListener, TextToSpeech.OnUtteranceCompletedListener {
 
     private TextToSpeech textToSpeech;
-    public TextView descrizione;
+    private TextView descrizione;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,8 +79,8 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ImageButton speech = (ImageButton)findViewById(R.id.speech);
-                speech.setVisibility(Button.VISIBLE);
+                ImageButton speech1 = (ImageButton)findViewById(R.id.speech);
+                speech1.setVisibility(Button.VISIBLE);
             }
         });
     }
@@ -99,9 +108,11 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
                 InputStream stream = conn.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(stream));
                 StringBuffer stringBuffer = new StringBuffer();
-                String linea = "";
-                while((linea = reader.readLine())!= null){
+
+                String linea = reader.readLine();
+                while(linea!= null){
                     stringBuffer.append(linea);
+                    linea = reader.readLine();
                 }
 
                 String finalJSON = stringBuffer.toString();
@@ -132,7 +143,7 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
                 return opere;
 
             } catch (IOException | JSONException e) {
-                e.printStackTrace();
+                Log.e("Errore di I/O",e.toString());
             } finally {
                 if(conn != null)
                     conn.disconnect();
@@ -140,7 +151,7 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
                     try {
                         reader.close();
                     } catch (IOException e) {
-                        e.printStackTrace();
+                        Log.e("Errore di I/O",e.toString());
                     }
             }
             return null;
