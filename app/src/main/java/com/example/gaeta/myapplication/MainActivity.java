@@ -92,10 +92,10 @@ public class MainActivity extends AppCompatActivity {
                 if (ni.isConnected()) {
                     connWifi = true;
                 }
-                if (ni.getTypeName().equalsIgnoreCase("MOBILE")) {
-                    if (ni.isConnected()) {
-                        connMobile = true;
-                    }
+            }
+            if (ni.getTypeName().equalsIgnoreCase("MOBILE")) {
+                if (ni.isConnected()) {
+                    connMobile = true;
                 }
             }
         }
