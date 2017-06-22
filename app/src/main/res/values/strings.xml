@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Smart Museum</string>
     <string name="title_activity_sub">Lettore Codice QR</string>
-    <string name="info">Attraverso questa applicazione potrete esplorare il nostro mondo e scoprire tutto quel che riguarda ogni singola opera del nostro museo. Tutto questo sarà possibile semplicemente inquadrando il QR Code sottostante ad ogni nostra opera.</string>
+    <string name="info">Attraverso questa applicazione potrete esplorare il nostro mondo e scoprire tutto quel che riguarda ogni singola opera del nostro museo. Tutto questo sarà possibile semplicemente inquadrando il QR Code sottostante ad ogni nostra opera. \n\n Per maggiori dettagli sul nostro museo ti invitiamo a cliccare sul link qui sotto.</string>
     <string name="buttonQR">Leggi QR Code</string>
     <string name="welcome">Benvenuto nell\' app del museo di Durazzo!</string>
 </resources>

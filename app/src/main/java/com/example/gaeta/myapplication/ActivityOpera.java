@@ -25,12 +25,12 @@ import java.net.URL;
 import java.util.HashMap;
 
 /**
- * PJDCC - Classe che modella l'Activity dove viene visualizzata la scheda
- *         dopo la decodifica del relativo codice QR.
- *         Vengono visualizzare tutte le informazioni, l'immagine se presente e il bottone
- *         per l'avvio della sintesi vocale della descrizione.
+ * Classe che modella l'Activity dove viene visualizzata la scheda
+ * dopo la decodifica del relativo codice QR.
+ * Vengono visualizzare tutte le informazioni, l'immagine se presente e il bottone
+ * per l'avvio della sintesi vocale della descrizione.
  *
- * @authors Oranger Edoardo, Settembre Gaetano, Recchia Vito, Marchese Vito
+ * @author Oranger Edoardo, Settembre Gaetano, Recchia Vito, Marchese Vito
  * @version 1.0
  */
 public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnInitListener, TextToSpeech.OnUtteranceCompletedListener {
@@ -45,8 +45,11 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
 
 
         textToSpeech = new TextToSpeech(ActivityOpera.this, ActivityOpera.this);
+
         final ImageButton speech = (ImageButton)findViewById(R.id.speech);
+
         speech.setOnClickListener(new View.OnClickListener() {
+
             @Override
             public void onClick(View v) {
                 if(!textToSpeech.isSpeaking()){
@@ -69,11 +72,13 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
             new JsonTask().execute("http://durresmuseum.altervista.org/CreazioneJsonOpere.php", passato);
     }
 
+    /** Override del metodo dell'interfaccia per il TextToSpeech */
     @Override
     public void onInit(int status) {
         textToSpeech.setOnUtteranceCompletedListener(this);
     }
 
+    /** Override del metodo dell'interfaccia per il TextToSpeech al completamento della lettura */
     @Override
     public void onUtteranceCompleted(String utteranceId) {
         runOnUiThread(new Runnable() {
@@ -95,7 +100,11 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
         super.onDestroy();
     }
 
-    private class JsonTask extends AsyncTask<String,String,Opere>{
+    /**
+     *  ActivityOpera.JsonTask - Classe che recupera i dati dal file Json creato dal PHP del sito.
+     *                           nel file Json sono presenti le opere del museo.
+     */
+    private class JsonTask extends AsyncTask<String,String,Opere> {
 
         @Override
         protected Opere doInBackground(String... params) {
@@ -107,6 +116,8 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
                 conn.connect();
                 InputStream stream = conn.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(stream));
+
+
                 StringBuffer stringBuffer = new StringBuffer();
 
                 String linea = reader.readLine();
@@ -181,5 +192,4 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
 
         }
     }
-
  }

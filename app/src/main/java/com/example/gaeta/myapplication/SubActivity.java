@@ -24,7 +24,7 @@ import java.net.URL;
  * PJDCC - Classe che modella l'Activity dove è presente la QRCodeReaderView per la scansione del QR.
  *         E' presente una classe innestata per il controllo dell'ID nel file JSON.
  *
- * @authors Oranger Edoardo, Settembre Gaetano, Recchia Vito, Marchese Vito
+ * @author Oranger Edoardo, Settembre Gaetano, Recchia Vito, Marchese Vito
  * @version 1.0
  */
 public class SubActivity extends AppCompatActivity implements OnQRCodeReadListener {
@@ -38,24 +38,30 @@ public class SubActivity extends AppCompatActivity implements OnQRCodeReadListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sub);
 
-        qrCodeReaderView = (QRCodeReaderView) findViewById(R.id.qrdecoderview);
+        qrCodeReaderView = (QRCodeReaderView)findViewById(R.id.qrdecoderview);
         qrCodeReaderView.setOnQRCodeReadListener(this);
 
-
-        qrCodeReaderView.setAutofocusInterval(1500L);
+        long AutoFocusLatency = 1500L;
+        qrCodeReaderView.setAutofocusInterval(AutoFocusLatency);
         qrCodeReaderView.setQRDecodingEnabled(true);
 
     }
 
-    // Called when a QR is decoded
-    // "text" : the text encoded in QR
-    // "points" : points where QR control points are placed in View
-	@Override
+    /**
+     * Medoto che viene chiamato quando il QR è codificato
+     * @param  text : the text encoded in QR
+     * @param points : points where QR control points are placed in View
+     */
+    @Override
 	public void onQRCodeRead(String text, PointF[] points) {
         trovato = text;
         new JsonTask().execute("http://durresmuseum.altervista.org/CreazioneJsonOpere.php", trovato);
     }
 
+
+    /**
+     *  Metodo che permette di avviare l'Activity per la visualizzazione dell'opera.
+     */
     private void runActivityOpera(String qr_letto) {
         Intent intent = new Intent(this, ActivityOpera.class);
 		Bundle data = new Bundle();
@@ -64,7 +70,10 @@ public class SubActivity extends AppCompatActivity implements OnQRCodeReadListen
         startActivity(intent);
     }
 
-
+    /**
+     *  SubActivity.JsonTask - Classe che recupera i dati dal file Json creato dal PHP del sito.
+     *                         Ha un metodo che controlla se l'id del QR code è presente nel file Json.
+     */
     private class JsonTask extends AsyncTask<String,String,Boolean>{
 
         @Override
@@ -131,13 +140,13 @@ public class SubActivity extends AppCompatActivity implements OnQRCodeReadListen
                 qrCodeReaderView.setQRDecodingEnabled(true);
             }
             else {
-                ToastError();
+                toastError();
             }
         }
     }
 
 
-    private void ToastError(){
+    private void toastError(){
         Toast.makeText(this, "QR Code non valido", Toast.LENGTH_SHORT).show();
     }
 

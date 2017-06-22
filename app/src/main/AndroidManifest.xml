@@ -23,12 +23,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SubActivity">
+        <activity android:name=".SubActivity" android:label="Scansione Codice QR">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-        <activity android:name=".ActivityOpera">
+        <activity android:name=".ActivityOpera" android:label="Scheda opera">
             <intent-filter>
                 <action android:name="android.intent.action.ActivityOpera" />
                 <category android:name="android.intent.category.DEFAULT" />
