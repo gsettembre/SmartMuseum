@@ -41,8 +41,8 @@ public class SubActivity extends AppCompatActivity implements OnQRCodeReadListen
         qrCodeReaderView = (QRCodeReaderView)findViewById(R.id.qrdecoderview);
         qrCodeReaderView.setOnQRCodeReadListener(this);
 
-        long AutoFocusLatency = 1500L;
-        qrCodeReaderView.setAutofocusInterval(AutoFocusLatency);
+        long autofocuslatency = 1500L;
+        qrCodeReaderView.setAutofocusInterval(autofocuslatency);
         qrCodeReaderView.setQRDecodingEnabled(true);
 
     }
@@ -116,14 +116,16 @@ public class SubActivity extends AppCompatActivity implements OnQRCodeReadListen
             } catch (IOException | JSONException e) {
                 Log.e("Errore di I/O",e.toString());
             } finally {
-                if(conn != null)
+                if(conn != null) {
                     conn.disconnect();
-                if(reader != null)
+                }
+                if(reader != null) {
                     try {
                         reader.close();
                     } catch (IOException e) {
-                        Log.e("Errore di I/O",e.toString());
+                        Log.e("Errore di I/O", e.toString());
                     }
+                }
             }
             return flag;
 
@@ -145,7 +147,7 @@ public class SubActivity extends AppCompatActivity implements OnQRCodeReadListen
         }
     }
 
-
+    /** Medoto per la visualizzazione del toast nel caso di QR non valido */
     private void toastError(){
         Toast.makeText(this, "QR Code non valido", Toast.LENGTH_SHORT).show();
     }

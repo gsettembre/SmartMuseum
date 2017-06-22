@@ -51,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /** Medoto per il controllo del permesso della fotocamera */
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void checkPermessi(){
         if(checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){

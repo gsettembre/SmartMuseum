@@ -156,14 +156,16 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
             } catch (IOException | JSONException e) {
                 Log.e("Errore di I/O",e.toString());
             } finally {
-                if(conn != null)
+                if(conn != null) {
                     conn.disconnect();
-                if(reader != null)
+                }
+                if(reader != null) {
                     try {
                         reader.close();
                     } catch (IOException e) {
-                        Log.e("Errore di I/O",e.toString());
+                        Log.e("Errore di I/O", e.toString());
                     }
+                }
             }
             return null;
 
