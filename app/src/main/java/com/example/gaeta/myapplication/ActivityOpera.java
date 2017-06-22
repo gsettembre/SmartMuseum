@@ -174,28 +174,13 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
         @Override
         protected void onPostExecute(Opere s) {
             super.onPostExecute(s);
-            TextView app;
-            app = (TextView)findViewById(R.id.titolo);
-            TextView titolo = app;
-
-            app = (TextView)findViewById(R.id.autore);
-            TextView autore = app;
-
-            app = (TextView)findViewById(R.id.corrente);
-            TextView corrente = app;
-
-            app = (TextView)findViewById(R.id.anno);
-            TextView anno = app;
-
-            app = (TextView)findViewById(R.id.categoria);
-            TextView categoria = app;
-
-            app = (TextView)findViewById(R.id.dimensione);
-            TextView dimensioni = app;
-
-            app = (TextView)findViewById(R.id.descrizione);
-            descrizione = app;
-
+            TextView titolo = (TextView)findViewById(R.id.titolo);
+            TextView autore = (TextView)findViewById(R.id.autore);
+            TextView corrente = (TextView)findViewById(R.id.corrente);
+            TextView anno = (TextView)findViewById(R.id.anno);
+            TextView categoria = (TextView)findViewById(R.id.categoria);
+            TextView dimensioni = (TextView)findViewById(R.id.dimensione);
+            descrizione = (TextView)findViewById(R.id.descrizione);
             ImageView image = (ImageView)findViewById(R.id.imageView3);
 
             titolo.setText(s.getTitolo());
