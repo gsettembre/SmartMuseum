@@ -9,87 +9,87 @@ package com.example.gaeta.myapplication;
 public class Opere {
 
     private String id;
-    private String Titolo;
-    private String Autore;
-    private String Corrente;
-    private String Anno;
-    private String Categoria;
-    private String Dimensioni;
-    private String Immagine;
-    private String Descrizione;
-
-
-    public void setID(String id) {
-        this.id = id;
-    }
-
-    public void setTitolo(String titolo) {
-        Titolo = titolo;
-    }
-
-    public void setAutore(String autore) {
-        Autore = autore;
-    }
-
-    public void setCorrente(String corrente) {
-        Corrente = corrente;
-    }
-
-    public void setAnno(String anno) {
-        Anno = anno;
-    }
-
-    public void setCategoria(String categoria) {
-        Categoria = categoria;
-    }
-
-    public void setDimensioni(String dimensioni) {
-        Dimensioni = dimensioni;
-    }
-
-    public void setImmagine(String immagine) {
-        Immagine = immagine;
-    }
-
-    public void setDescrizione(String descrizione) {
-        Descrizione = descrizione;
-    }
+    private String titolo;
+    private String autore;
+    private String corrente;
+    private String anno;
+    private String categoria;
+    private String dimensioni;
+    private String immagine;
+    private String descrizione;
 
     public String getId() {
         return id;
     }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
     public String getTitolo() {
-        return Titolo;
+        return titolo;
+    }
+
+    public void setTitolo(String titolo) {
+        this.titolo = titolo;
     }
 
     public String getAutore() {
-        return Autore;
+        return autore;
+    }
+
+    public void setAutore(String autore) {
+        this.autore = autore;
     }
 
     public String getCorrente() {
-        return Corrente;
+        return corrente;
+    }
+
+    public void setCorrente(String corrente) {
+        this.corrente = corrente;
     }
 
     public String getAnno() {
-        return Anno;
+        return anno;
+    }
+
+    public void setAnno(String anno) {
+        this.anno = anno;
     }
 
     public String getCategoria() {
-        return Categoria;
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
     public String getDimensioni() {
-        return Dimensioni;
+        return dimensioni;
+    }
+
+    public void setDimensioni(String dimensioni) {
+        this.dimensioni = dimensioni;
     }
 
     public String getImmagine() {
-        return Immagine;
+        return immagine;
+    }
+
+    public void setImmagine(String immagine) {
+        this.immagine = immagine;
     }
 
     public String getDescrizione() {
-        return Descrizione;
+        return descrizione;
     }
+
+    public void setDescrizione(String descrizione) {
+        this.descrizione = descrizione;
+    }
+
 }
 
 

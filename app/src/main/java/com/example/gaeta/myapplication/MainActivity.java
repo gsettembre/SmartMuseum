@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /** Medoto per il controllo del permesso della fotocamera */
+    /** Metodo per il controllo del permesso della fotocamera */
     @RequiresApi(api = Build.VERSION_CODES.M)
     private void checkPermessi(){
         if(checkSelfPermission(Manifest.permission.CAMERA) == PackageManager.PERMISSION_DENIED){
@@ -63,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /** Metodo per il controllo tra l'id del permesso e il permesso effettivo */
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
@@ -82,6 +83,10 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    /**
+     * Metodo che controlla se è attiva una connessione ad internet.
+     * @return booleano che controlla la presenza di una connesione.
+     */
     private static boolean connessioneInternet(Context contesto) {
         boolean connWifi = false;
         boolean connMobile = false;

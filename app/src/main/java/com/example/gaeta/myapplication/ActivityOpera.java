@@ -37,6 +37,8 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
 
     private TextToSpeech textToSpeech;
     private TextView descrizione;
+    private static final int SIZE = 20000;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +120,7 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
                 reader = new BufferedReader(new InputStreamReader(stream));
 
 
-                StringBuffer stringBuffer = new StringBuffer();
+                StringBuffer stringBuffer = new StringBuffer(SIZE);
 
                 String linea = reader.readLine();
                 while(linea!= null){
@@ -128,7 +130,6 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
 
                 String finalJSON = stringBuffer.toString();
 
-                StringBuffer finalString = new StringBuffer();
 
                 Opere opere = new Opere();
                 JSONObject jsonObject = new JSONObject(finalJSON);
@@ -140,7 +141,7 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
                     JSONObject finalObject = jsonArray.getJSONObject(i);
                     //Se il codice QR letto e la stringa dell' array sono uguali ...
                     if (params[1].equals(finalObject.getString("ID"))) {
-                        opere.setID(finalObject.getString("ID"));
+                        opere.setId(finalObject.getString("ID"));
                         opere.setTitolo(finalObject.getString("Nome"));
                         opere.setAutore(finalObject.getString("Autore"));
                         opere.setCorrente(finalObject.getString("Corrente_artistica"));
@@ -174,6 +175,7 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
         @Override
         protected void onPostExecute(Opere s) {
             super.onPostExecute(s);
+
             TextView titolo = (TextView)findViewById(R.id.titolo);
             TextView autore = (TextView)findViewById(R.id.autore);
             TextView corrente = (TextView)findViewById(R.id.corrente);

@@ -31,6 +31,7 @@ public class SubActivity extends AppCompatActivity implements OnQRCodeReadListen
 
 	private QRCodeReaderView qrCodeReaderView;
     private String trovato;
+    private static final int SIZE = 20000;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +88,7 @@ public class SubActivity extends AppCompatActivity implements OnQRCodeReadListen
                 conn.connect();
                 InputStream stream = conn.getInputStream();
                 reader = new BufferedReader(new InputStreamReader(stream));
-                StringBuffer stringBuffer = new StringBuffer();
+                StringBuffer stringBuffer = new StringBuffer(SIZE);
 
                 String linea = reader.readLine();
                 while(linea!= null){
@@ -97,7 +98,7 @@ public class SubActivity extends AppCompatActivity implements OnQRCodeReadListen
 
                 String finalJSON = stringBuffer.toString();
 
-                StringBuffer finalString = new StringBuffer();
+
 
                 JSONObject jsonObject = new JSONObject(finalJSON);
                 JSONArray jsonArray = jsonObject.getJSONArray("opere");
