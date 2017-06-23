@@ -40,11 +40,11 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
     private static final int SIZE = 20000;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opera);
-
 
         textToSpeech = new TextToSpeech(ActivityOpera.this, ActivityOpera.this);
 
@@ -86,8 +86,8 @@ public class ActivityOpera extends AppCompatActivity implements TextToSpeech.OnI
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                ImageButton speech1 = (ImageButton)findViewById(R.id.speech);
-                speech1.setVisibility(Button.VISIBLE);
+                ImageButton speech = (ImageButton)findViewById(R.id.speech);
+                speech.setVisibility(Button.VISIBLE);
             }
         });
     }
