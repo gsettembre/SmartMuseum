@@ -49,7 +49,11 @@ public class MainActivity extends AppCompatActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v){
-                checkPermessi();
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    checkPermessi();
+                } else {
+                    runSubActivity();
+                }
             }
         });
 
@@ -127,12 +131,11 @@ public class MainActivity extends AppCompatActivity {
         if (item.getItemId() == R.id.menu) {
             AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
             builder.setTitle("Info SmartMuseum");
-            builder.setMessage("Versione 1.0.0\n\nCopyright © 2016-2017\nEdoardo Oranger, Settembre Gaetano, Vito Marchese, Vito Recchia");
+            builder.setMessage("Versione 1.0.0\n\nCopyright © 2016-2017\nEdoardo Oranger, Gaetano Settembre, Vito Marchese, Vito Recchia");
             AlertDialog d = builder.create();
             d.show();
         }
         return super.onOptionsItemSelected(item);
     }
-
 
 }
